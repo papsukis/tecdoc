@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+</head>
+
+<body>
+<div th:replace="common/header :: top-navigation">...</div>
+
+<div id="wrapper" >
+    <div th:insert="common/header :: sidebar">...</div>
+    <div id="content-wrapper">
+<h2>Message : <span th:utext="${message}"></span></h2>
+    </div>
+</div>
+
+<div th:replace="common/footer :: footer">...</div>
+
+</body>
+</html>

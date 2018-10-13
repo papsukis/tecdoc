@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+    <title>Users</title>
+</head>
+<body>
+<!-- Include _menu.html -->
+<div th:replace="common/header :: top-navigation">...</div>
+<div id="wrapper" >
+    <div th:insert="common/header :: sidebar">...</div>
+    <div id="content-wrapper">
+        <table>
+            <th:block th:each="l : ${logs}" >
+                <tr>
+
+                    <th>name : </th>
+                    <td th:text="${l.name}"><b></b></td>
+                    <th>email : </th>
+                    <td th:text="${l.email}"><b></b></td>
+
+                    <th>IP address :</th>
+                    <td th:text="${l.IP}"><b></b></td>
+                    <th>Log Time :</th>
+                    <td th:text="${l.logTime}"><b></b></td>
+
+                </tr>
+            </th:block>
+        </table>
+
+    </div>
+</div>
+<div th:replace="common/footer :: footer">...</div>
+</body>
+</html>

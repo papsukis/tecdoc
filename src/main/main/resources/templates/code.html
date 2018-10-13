@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>QR code</title>
+
+    <head th:replace="common/header :: head"></head>
+</head>
+<body>
+<div th:replace="common/header :: top-navigation">...</div>
+<div id="wrapper" >
+    <div th:insert="common/header :: sidebar">...</div>
+    <div id="content-wrapper">
+        <br/>
+        <img th:src="${qrCode}"/>
+        <br/>
+        <a href="/login">Return to login page</a>
+
+    </div>
+</div>
+<div th:replace="common/footer :: footer">...</div>
+</body>
+</html>

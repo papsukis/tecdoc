@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+
+</head>
+<body id="page-top">
+<div th:include="common/header :: top-navigation">...</div>
+
+
+<div id="wrapper" >
+    <div th:insert="common/header :: sidebar">...</div>
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.html">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Blank Page</li>
+            </ol>
+
+            <!-- Page Content -->
+            <h1>Blank Page</h1>
+            <hr>
+            <p>This is a great starting point for new custom pages.</p>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+</div>
+
+<div th:replace="common/footer :: footer">...</div>
+
+</body>
+</html>

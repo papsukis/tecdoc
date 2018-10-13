@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+
+</head>
+<body id="page-top">
+<div th:include="common/header :: top-navigation">...</div>
+
+
+<div id="wrapper" >
+    <div th:insert="common/header :: sidebar">...</div>
+    <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">files</th>
+                    <th scope="col">directories</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="f : ${ftpFiles}" >
+                    <tr>
+                        <td th:text="${f}"><b>name : </b></td>
+                    </tr>
+                </th:block>
+                <th:block th:each="d : ${ftpDirectories}" >
+                    <tr>
+                        <td th:text="${d}"><b>name : </b></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+</div>
+
+<div th:replace="common/footer :: footer">...</div>
+
+</body>
+</html>

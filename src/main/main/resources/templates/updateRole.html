@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Person</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <head th:replace="common/header :: head"></head>
+</head>
+<body>
+<div th:replace="common/header :: top-navigation">...</div>
+<h1>Update a Person:</h1>
+<div id="wrapper" >
+    <div th:insert="common/header :: sidebar">...</div>
+    <div id="content-wrapper">
+
+        <form th:action="@{/updateRole}"
+              th:object="${role}" method="POST">
+            <input type="hidden" th:field="*{id}" />
+            Name:
+            <input type="text" th:field="*{name}" />
+            <br/>
+            Description:
+            <input type="text" th:field="*{description}" />
+            <br/>
+            <ul>
+                <li th:each="p : ${privileges}" >
+                    <input type="checkbox" th:field="*{privileges}" th:value="${p.id}" />
+                    <label th:for="${#ids.prev('privileges')}"
+                           th:text="${p.name}"></label>
+                </li>
+            </ul>
+            <input type="submit" value="update" />
+        </form>
+
+        <br/>
+
+    </div>
+</div>
+<div th:replace="common/footer :: footer">...</div>
+</body>
