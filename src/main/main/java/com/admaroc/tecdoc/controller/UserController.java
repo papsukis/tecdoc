@@ -1,10 +1,10 @@
 package com.admaroc.tecdoc.controller;
 
 
-import com.admaroc.tecdoc.model.User;
-import com.admaroc.tecdoc.services.RoleServices;
-import com.admaroc.tecdoc.services.UserLogServices;
-import com.admaroc.tecdoc.services.UserServices;
+import com.admaroc.tecdoc.tecdoc.model.User;
+import com.admaroc.tecdoc.services.tecdoc.RoleServices;
+import com.admaroc.tecdoc.services.tecdoc.UserLogServices;
+import com.admaroc.tecdoc.services.tecdoc.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

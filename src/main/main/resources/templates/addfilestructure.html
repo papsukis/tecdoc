@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+
+</head>
+<body id="page-top">
+
+
+<div th:include="common/header :: top-navigation">...</div>
+
+
+<div id="wrapper" >
+    <div id="content">
+        <div th:insert="common/header :: sidebar(files)">...</div>
+
+        <div class="jumbotron">
+            <div class="row">
+                <form class=" border border-light p-5 m-5" th:action="@{/addfilestructure}"
+                      th:object="${filestructure}" method="POST">
+
+                    <p class="h4 mb-4 text-center">Ajouter une structure</p>
+
+
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="text" class="form-control" placeholder="Nom de fichier" th:field="*{filename}">
+                    </div>
+
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="text" class="form-control" placeholder="Nom te table" th:field="*{tableName}">
+                    </div>
+
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="text" class="form-control" placeholder="Nom" th:field="*{name}">
+                    </div>
+
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="number" class="form-control" placeholder="Position" th:field="*{pos}">
+                    </div>
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="number" class="form-control" placeholder="Longueur" th:field="*{length}">
+                    </div>
+
+
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="text" class="form-control" placeholder="Type" th:field="*{type}">
+                    </div>
+
+                    <div class="form-row mb-4">
+
+                        <!-- First name -->
+                        <input type="text" class="form-control" placeholder="Description" th:field="*{description}">
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <input class="mx-auto btn btn-primary" type="submit" value="Create" />
+                    </div>
+                </form>
+    </div>
+</div>
+    </div></div>
+<div th:replace="common/footer :: footer">...</div>
+
+</body>
+</html>

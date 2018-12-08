@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+
+</head>
+<body id="page-top">
+<div th:include="common/header :: top-navigation">...</div>
+
+
+<div id="wrapper" >
+    <div id="content">
+        <div th:insert="common/header :: sidebar(ftp)">...</div>
+        <div id="content-wrapper">
+
+            <div class="container">
+
+                <form class="text-center border border-light p-5" th:action="@{/conect}" method="get">
+
+                    <p class="h4 mb-4">Sign in</p>
+
+                    <input type="text" name='server' id="defaultFtpAdress" class="form-control mb-4" placeholder="Serveur ftp">
+
+                    <!-- Email -->
+                    <input type="text" name='name' id="defaultUsername" class="form-control mb-4" placeholder="Nom d'utilisateur">
+
+                    <!-- Password -->
+                    <input type="password" name='password' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Mot de passe">
+
+                    <input type="number" name="port" id="defaultPort" class="form-control mb-4" placeholder="Port">
+
+                    <!-- Sign in button -->
+                    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
+
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div th:replace="common/footer :: footer">...</div>
+</body>
+</html>

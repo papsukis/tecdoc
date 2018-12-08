@@ -2,8 +2,8 @@ package com.admaroc.tecdoc.controller;
 
 import com.admaroc.tecdoc.exception.CustomErrorType;
 import com.admaroc.tecdoc.exception.UserNotFoundException;
-import com.admaroc.tecdoc.model.Role;
-import com.admaroc.tecdoc.services.RoleServices;
+import com.admaroc.tecdoc.tecdoc.model.Role;
+import com.admaroc.tecdoc.services.tecdoc.RoleServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

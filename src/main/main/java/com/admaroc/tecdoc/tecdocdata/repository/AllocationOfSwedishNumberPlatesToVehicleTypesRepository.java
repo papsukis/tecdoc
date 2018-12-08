@@ -1,0 +1,12 @@
+package com.admaroc.tecdoc.tecdocdata.repository;
+
+import com.admaroc.tecdoc.tecdocdata.model.AllocationOfSwedishNumberPlatesToVehicleTypes;
+import com.admaroc.tecdoc.tecdocdata.model.compositeKeys.AllocationOfSwedishNumberPlatesToVehicleTypesId;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AllocationOfSwedishNumberPlatesToVehicleTypesRepository extends JpaRepository<AllocationOfSwedishNumberPlatesToVehicleTypes, AllocationOfSwedishNumberPlatesToVehicleTypesId> {
+
+
+}

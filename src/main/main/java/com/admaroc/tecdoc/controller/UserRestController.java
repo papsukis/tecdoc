@@ -1,7 +1,7 @@
 package com.admaroc.tecdoc.controller;
 
-import com.admaroc.tecdoc.services.RoleServices;
-import com.admaroc.tecdoc.services.UserServices;
+import com.admaroc.tecdoc.services.tecdoc.RoleServices;
+import com.admaroc.tecdoc.services.tecdoc.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

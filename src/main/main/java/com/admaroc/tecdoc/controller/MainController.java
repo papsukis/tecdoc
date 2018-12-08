@@ -1,24 +1,19 @@
 package com.admaroc.tecdoc.controller;
 
-import com.admaroc.tecdoc.model.FormView;
-import com.admaroc.tecdoc.model.FtpClient;
-import com.admaroc.tecdoc.model.User;
+import com.admaroc.tecdoc.tecdoc.model.FormView;
+import com.admaroc.tecdoc.tecdoc.model.User;
 
-import com.admaroc.tecdoc.services.PrivilegeServices;
-import com.admaroc.tecdoc.services.RoleServices;
-import com.admaroc.tecdoc.services.UserLogServices;
-import com.admaroc.tecdoc.services.UserServices;
+import com.admaroc.tecdoc.services.tecdoc.PrivilegeServices;
+import com.admaroc.tecdoc.services.tecdoc.RoleServices;
+import com.admaroc.tecdoc.services.tecdoc.UserLogServices;
+import com.admaroc.tecdoc.services.tecdoc.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.io.File;
-import java.io.IOException;
 
 @Controller
 public class MainController {
@@ -33,44 +28,10 @@ public class MainController {
     UserLogServices userLogServices;
 
 
+
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcomePage(Model model) {
 
-
-        /*FtpClient client=new FtpClient("localhost",9999,"test","test");//ftpServices.connect("ftp://speedtest.tele2.net/","anonymous","ftp4j");
-        File file= new File("C:\\Users\\c\\Documents\\test.txt");
-
-        try {
-            client.open();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        /*try {
-            client.putFileToPath(file,"/test.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-       /* try {
-            client.downloadFile("/test.txt","C:\\Users\\c\\Documents\\ftpDownload\\test.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-       /* try {
-            client.connect("localhost");
-            client.login("test","test");
-            System.out.println("succesfully conected to ftp server");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FTPIllegalReplyException e) {
-            e.printStackTrace();
-        } catch (FTPException e) {
-            e.printStackTrace();
-        }
-        if(client!= null)
-        {
-
-        }*/
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
         return "welcomePage";

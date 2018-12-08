@@ -1,10 +1,10 @@
 package com.admaroc.tecdoc.security;
 
 
-import com.admaroc.tecdoc.model.User;
-import com.admaroc.tecdoc.model.UserLog;
-import com.admaroc.tecdoc.services.UserLogServices;
-import com.admaroc.tecdoc.services.UserServices;
+import com.admaroc.tecdoc.tecdoc.model.User;
+import com.admaroc.tecdoc.tecdoc.model.UserLog;
+import com.admaroc.tecdoc.services.tecdoc.UserLogServices;
+import com.admaroc.tecdoc.services.tecdoc.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;

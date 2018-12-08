@@ -9,31 +9,47 @@
 <body>
 <div th:replace="common/header :: top-navigation">...</div>
 
-<h1>Create a Role:</h1>
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
+    <div  id="content">
+    <div th:insert="common/header :: sidebar(users)">...</div>
     <div id="content-wrapper">
-        <form th:action="@{/saveRole}"
+        <form class=" border border-light p-5 m-5" th:action="@{/saveRole}"
               th:object="${role}" method="POST">
-            Name :
-            <input type="text" th:field="*{name}" />
-            <br/>
-            Description :
-            <textarea type="text" th:field="*{description}" />
-            <br/>
-            <form th:object="${privileges}">
-                <ul>
-                    <li th:each="privileges : ${allprivileges}">
+            <p class="h4 mb-4 text-center">Ajouter un Role</p>
+
+            <div class="form-row mb-4">
+            <input type="text" class="form-control" placeholder="Nom d'utilisateur" th:field="*{name}">
+            </div>
+
+            <textarea class="form-control" type="text" th:field="*{description}" />
+
+            <div class="d-flex flex-column justify-content-start align-content-start">
+
+                <div class="custom-control custom-checkbox" th:each="privileges : ${allprivileges}">
+
+                    <input type="checkbox" class="custom-control-input" th:field="*{privileges}" th:value="${privileges.id}" />
+                    <label class="custom-control-label" th:for="${#ids.prev('privileges')}"
+                           th:text="${privileges.name}"></label>
+
+                </div>
+
+
+                <!--<ul>
+                    <li>
                         <input type="checkbox" th:field="*{privilegeList}" th:value="${privileges.name}" />
                         <label
                                 th:text="${privileges.name}"></label>
                     </li>
-                </ul>
+                </ul>-->
 
-                <input type="submit" value="Create" />
-            </form></form>
+                <div class="d-flex justify-content-center">
+                    <input class="mx-auto btn btn-primary" type="submit" value="Create" />
+                </div>
+            </div>
+            </form>
 
         <br/>
+    </div>
     </div>
 </div>
 <div th:replace="common/footer :: footer">...</div>

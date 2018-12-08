@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head></head>
+<body>
+<div th:replace="common/header :: top-navigation">...</div>
+
+
+<div id="wrapper" >
+    <div  id="content">
+        <div th:insert="common/header :: sidebar(users)">...</div>
+
+
+        <div id="content-wrapper">
+
+            <div class="jumbotron">
+                <table>
+                    <thead>
+                    <tr>
+                        <th scope="col">nom</th>
+                    </thead>
+                    <tbody>
+
+<div th:each="item : ${tables}">
+                        <li  th:text="${item}">Item description here...</li>
+</div>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="common/footer :: footer">...</div>
+</body>
+</html>

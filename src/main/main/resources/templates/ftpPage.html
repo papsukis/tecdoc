@@ -5,39 +5,280 @@
 
 </head>
 <body id="page-top">
+
+
 <div th:include="common/header :: top-navigation">...</div>
 
 
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
-    <div id="content-wrapper">
-
-        <div class="container-fluid">
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">files</th>
-                    <th scope="col">directories</th>
+    <div id="content">
+        <div th:insert="common/header :: sidebar(ftp)">...</div>
+        <div id="content-wrapper">
 
 
-                </tr>
-                </thead>
-                <tbody>
-                <th:block th:each="f : ${ftpFiles}" >
-                    <tr>
-                        <td th:text="${f}"><b>name : </b></td>
-                    </tr>
-                </th:block>
-                <th:block th:each="d : ${ftpDirectories}" >
-                    <tr>
-                        <td th:text="${d}"><b>name : </b></td>
-                    </tr>
-                </th:block>
-                </tbody>
-            </table>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+
+                        <ul class="nav nav-tabs mt-1" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" th:classappend="${#request.getParameter('localCurrentDirectory')} == null ? 'active' : '' " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tecdoc</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:classappend="${#request.getParameter('localCurrentDirectory')} != null ? 'active' : '' " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Local</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+
+                            <div class="tab-pane fade"  th:classappend="${#request.getParameter('localCurrentDirectory')} == null ? 'show active' : '' " id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                                <div class="jumbotron ">
+
+                                        <div class="col-9">
+                                            <div class="d-flex justify-content-center">
+                                                <div th:if="${tecdoc}== false">
+                                                    <button type="button" class="btn btn-primary mx-auto" data-toggle="modal" data-target="#tecdocConect">Conexion au serveur tecdoc</button>
+                                                </div>
+                                            </div>
+                                            <div th:if="${tecdoc}">
+
+                                                <ol class="breadcrumb ">
+                                                    <li class="breadcrumb-item" th:if="${#strings.isEmpty(tecdocParentDirectory)== false}">
+                                                        <a href="#" th:href="@{/ftp}" th:text="root" th:if="${tecdocParentDirectory}"></a>
+                                                    </li>
+                                                    <li class="breadcrumb-item" th:each="c:${tecdocParentDirectory}">
+                                                        <a href="#" th:href="@{/ftp(tecdocCurrentDirectory=${c})}" th:text="${c}"></a>
+                                                    </li>
+                                                    <li class="breadcrumb-item active" th:text="${tecdocCurrentDirectory}" ></li>
+                                                </ol>
+                                                    <div class="d-flex align-content-start align-items-start mx-auto flex-wrap border">
+
+                                                    <div th:each="t : ${tecdocDirectories}" >
+                                                        <div class="col lg-3 m-2 p-2"  >
+                                                            <div class="card border-0" style="width:8em;  height:10em;" >
+
+                                                                <a th:href="@{/ftp(tecdocCurrentDirectory=${t})}"><img class="card-img-top img-fluid" src="..." th:src="@{/img/folder-icon.png}" style="width: auto;height: auto;"></a>
+                                                                <div class="card-block">
+                                                                    <div class="d-flex flex-row justify-content-between ml-auto p-1 m-1">
+                                                                        <p class="text-nowrap bd-highlight text-truncate mx-auto" th:value="${t}" th:text="${t}" data-toggle="tooltip" data-placement="right" th:title="${t}"></p>
+                                                                        <a class=" align-self-center"role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="fas fa-angle-down " ></i></a>
+                                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                                                                            <a class="dropdown-item" href="#" th:href="@{/ftp(tecdocCurrentDirectory=${t})}">Ouvrir</a>
+                                                                            <a class="dropdown-item rename" th:onclick="'javascript:renameFolder(\'' + ${t} +'\');'">Renommer</a>
+                                                                            <a class="dropdown-item" href="#" th:href="@{/delete/{tecdocCurrentDirectory}(tecdocCurrentDirectory=${t})}">Supprimer</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div th:each="f : ${tecdocFiles}">
+                                                        <div class="col lg-3 m-2 p-2" >
+                                                            <div class="card border-0" style="width: 8em;height: 10em;">
+                                                                <div class="d-flex flex-column">
+                                                                    <img class="card-img-top img-fluid" src="..." th:src="@{/img/zip-file.png}" style="width: auto;height: auto;" th:if="${#strings.endsWith(f,'.zip') or #strings.endsWith(f,'.7z')}  ">
+                                                                    <img class="card-img-top img-fluid" src="..." th:src="@{/img/file-icon.png}" style="width: auto;height: auto;" th:if="${#strings.endsWith(f,'.zip') == false and #strings.endsWith(f,'.7z')==false}">
+                                                                    <div class="card-block ">
+                                                                        <div class="d-flex flex-row justify-content-between ml-auto p-1 m-1 dropright">
+                                                                            <input class="align-self-center" type="checkbox" name="file" th:value="${f}"/>
+                                                                            <p class="text-nowrap bd-highlight text-truncate m-1" th:value="${f}" th:text="${f}" data-toggle="tooltip" data-placement="right" th:title="${f}"></p>
+                                                                            <a class=" align-self-center"role="button" id="directory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="fas fa-angle-down " ></i></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                                                                                <a class="dropdown-item" href="#" th:href="@{/uncompress/{file}(file=${f})}" th:if="${#strings.endsWith(f,'.zip') or #strings.endsWith(f,'.7z')}">Décompresser</a>
+                                                                                <a class="dropdown-item" th:onclick="'javascript:readFile(\'' + ${f} +'\');'">Lire</a>
+                                                                                <a class="dropdown-item" href="#" th:href="@{/download/{file}(file=${f})}">Telecharger</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                                <div th:if="${tecdoc}">
+                                                <div class="d-flex align-content-start  align-items-start mx-auto flex-wrap border">
+
+                                                    <p>test</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            <div class="tab-pane fade " th:classappend="${#request.getParameter('localCurrentDirectory')} != null ? 'show active' : ''" id="profile" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="jumbotron ">
+                                    <form th:action="@{/uncompressMultipleFiles}" method="get">
+                                    <div class="row row-eq-height">
+                                        <div class="col-9">
+                                            <div class="d-flex justify-content-center">
+                                                <div th:if="${local}== false">
+                                                    <button type="button" class="btn btn-primary mx-auto" data-toggle="modal" data-target="#localConect">Conexion au serveur Local</button>
+                                                </div>
+                                            </div>
+                                            <div th:if="${local}">
+
+                                                <ol class="breadcrumb">
+                                                    <li class="breadcrumb-item" th:if="${#strings.isEmpty(localParentDirectory)== false}">
+                                                        <a href="#" th:href="@{/ftp}" th:text="root" th:if="${localParentDirectory}"></a>
+                                                    </li>
+                                                    <li class="breadcrumb-item" th:each="c:${localParentDirectory}">
+                                                        <a href="#" th:href="@{/ftp(localCurrentDirectory=${c})}" th:text="${c}"></a>
+                                                    </li>
+                                                    <li class="breadcrumb-item active" th:text="${localCurrentDirectory}" ></li>
+                                                </ol>
+
+                                                <div class="d-flex align-content-start align-items-start mx-auto flex-wrap border">
+                                                    <div th:each="d : ${localDirectories}" >
+                                                        <div class="col lg-3 m-2 p-2"  >
+                                                            <div class="card border-0" style="width:8em;  height:10em;" >
+
+                                                                <a th:href="@{/ftp(localCurrentDirectory=${d})}"><img class="card-img-top img-fluid" src="..." th:src="@{/img/folder-icon.png}" style="width: auto;height: auto;"></a>
+                                                                <div class="card-block">
+                                                                    <div class="d-flex flex-row justify-content-between ml-auto p-1 m-1">
+                                                                        <p class="text-nowrap bd-highlight text-truncate mx-auto" th:value="${d}" th:text="${d}" data-toggle="tooltip" data-placement="right" th:title="${d}"></p>
+                                                                        <a class=" align-self-center"role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                            <i class="fas fa-angle-down " ></i></a>
+                                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                                                                            <a class="dropdown-item" href="#" th:href="@{/ftp{localCurrentDirectory}(localCurrentDirectory=${d})}">Ouvrir</a>
+                                                                            <a class="dropdown-item rename" th:onclick="'javascript:renameFolder(\'' + ${d} +'\');'">Renommer</a>
+                                                                            <a class="dropdown-item" href="#" th:href="@{/delete/{localCurrentDirectory}(localCurrentDirectory=${d})}">Supprimer</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div th:each="f : ${localFiles}">
+                                                        <div class="col lg-3 m-2 p-2" >
+                                                            <div class="card border-0" style="width: 8em;height: 10em;">
+                                                                <div class="d-flex flex-column">
+                                                                    <img class="card-img-top img-fluid" src="..." th:src="@{/img/zip-file.png}" style="width: auto;height: auto;" th:if="${#strings.endsWith(f,'.zip') or #strings.endsWith(f,'.7z')}  ">
+                                                                    <img class="card-img-top img-fluid" src="..." th:src="@{/img/file-icon.png}" style="width: auto;height: auto;" th:if="${#strings.endsWith(f,'.zip') == false and #strings.endsWith(f,'.7z')==false}">
+                                                                    <div class="card-block ">
+
+                                                                        <div class="d-flex flex-row justify-content-between ml-auto p-1 m-1 dropright">
+                                                                            <input class="align-self-center" type="checkbox" name="file" th:value="${f}"/>
+                                                                            <p class="text-nowrap bd-highlight text-truncate m-1" th:value="${f}" th:text="${f}" data-toggle="tooltip" data-placement="right" th:title="${f}"></p>
+                                                                            <a class=" align-self-center"role="button" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="fas fa-angle-down " ></i></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                                                                                <a class="dropdown-item" href="#" th:href="@{/uncompress/{file}(file=${f})}" th:if="${#strings.endsWith(f,'.zip') or #strings.endsWith(f,'.7z')}">Décompresser</a>
+                                                                                <a class="dropdown-item" th:unless="${#strings.endsWith(f,'.zip') or #strings.endsWith(f,'.7z')}" th:onclick="'javascript:readLocalFile(\'' + ${f} +'\');'">Lire</a>
+                                                                                <a class="dropdown-item" href="#" th:href="@{#}">Something else here</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div th:if="${local}">
+                                            <div class="d-flex align-content-start align-items-start mx-auto flex-wrap border h-100">
+
+                                                <button type="submit" class="btn btn-primary" >Decompresser les fichiers selectioné</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <!-- /.container-fluid -->
+        <div id="renameFolder" ></div>
+        <div id="readFileHolder" ></div>
+
+
+        <div class="modal fade" id="tecdocConect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Conect</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body mx-3">
+                        <form class="text-center border border-light p-5" th:action="@{/tecdocConect}" method="get">
+
+
+
+                            <input type="text" name='server' id="defaultFtpAdress" class="form-control mb-4" placeholder="Serveur ftp">
+
+                            <!-- Email -->
+                            <input type="text" name='name' id="defaultUsername" class="form-control mb-4" placeholder="Nom d'utilisateur">
+
+                            <!-- Password -->
+                            <input type="password" name='password' id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Mot de passe">
+
+                            <input type="number" name="port" id="defaultPort" class="form-control mb-4" placeholder="Port">
+
+                            <!-- Sign in button -->
+                            <button class="btn btn-info btn-block my-4" type="submit">Conexion</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="localConect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold" > Conect</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body mx-3">
+                        <form class="text-center border border-light p-5" th:action="@{/localConect}" method="get">
+
+
+
+                            <input type="text" name='server' id="localFtpAdress" class="form-control mb-4" placeholder="Serveur ftp">
+
+                            <!-- Email -->
+                            <input type="text" name='name' id="LocalUsername" class="form-control mb-4" placeholder="Nom d'utilisateur">
+
+                            <!-- Password -->
+                            <input type="password" name='password' id="LocalLoginFormPassword" class="form-control mb-4" placeholder="Mot de passe">
+
+                            <input type="number" name="port" id="localPort" class="form-control mb-4" placeholder="Port">
+
+                            <!-- Sign in button -->
+                            <button class="btn btn-info btn-block my-4" type="submit">Conexion</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>

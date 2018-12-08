@@ -1,9 +1,9 @@
 package com.admaroc.tecdoc.controller;
 
 
-import com.admaroc.tecdoc.model.UserLog;
-import com.admaroc.tecdoc.services.UserLogServices;
-import com.admaroc.tecdoc.services.UserServices;
+import com.admaroc.tecdoc.tecdoc.model.UserLog;
+import com.admaroc.tecdoc.services.tecdoc.UserLogServices;
+import com.admaroc.tecdoc.services.tecdoc.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

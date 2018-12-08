@@ -7,15 +7,17 @@
 
 
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
+    <div  id="content">
+    <div th:insert="common/header :: sidebar(users)">...</div>
 
 
     <div id="content-wrapper">
-        <div class="container-fluid">
+
             <div class="jumbotron">
+                <div class="row">
         <a th:href="@{/addUser}" class="btn btn-info">Add User</a>
         <a th:href="@{/rolePage}" class="btn btn-info">Gestion de roles</a>
-                <br>
+                </div>
         <table class="table">
             <thead>
             <tr>
@@ -27,7 +29,7 @@
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="user : ${Users}" >
+            <div th:each="user : ${Users}" >
                 <tr>
                     <td th:text="${user.id}"><b>name : </b></td>
                     <td th:text="${user.name}"><b>name : </b></td>
@@ -35,7 +37,7 @@
                     <th><a th:href="@{/deleteUser(id=${user.id})}" class="btn btn-danger">Delete</a></th>
                     <th><a th:href="@{/updateUser/{id}(id=${user.id})}" class="btn btn-primary">Update User</a></th>
                 </tr>
-            </th:block>
+            </div>
             </tbody>
         </table>
 

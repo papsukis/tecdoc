@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="renameFolder" >
+
+        <div class="modal fade" id="rename" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:fragment="view">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Renommer dossier</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form th:action="@{/rename/{directory}(directory=${directory})}" method='GET'>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-4">
+                            <input type="name" name="name" id="defaultForm-pass" class="form-control" th:attr="placeholder=${directory}" autofocus>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass" ></label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-default" type="submit" value="Renommer"></input>
+                    </div></form>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+<div id="readFileHolder" >
+<div class="modal fade" id="readFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" th:fragment="file">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold" th:text="${filename}"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+                <div class="modal-body mx-3">
+                   <p th:text="${file}"></p>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

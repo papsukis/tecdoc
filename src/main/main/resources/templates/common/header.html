@@ -1,43 +1,38 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="head" th:remove="tag">
     <title>Tecdoc</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen" />
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap-theme.min.css}"
-          rel="stylesheet" media="screen" />
-
-    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <!-- Custom fonts for this template-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-
-    <!--<link href="../static/vendor/fontawesome-free/css/all.min.css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">-->
-
-    <!-- Page level plugin CSS-->
-    <link href="../static/vendor/datatables/dataTables.bootstrap4.css" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link  href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
     <link href="../static/css/sb-admin.css" th:href="@{/css/sb-admin.css}" rel="stylesheet">
-
+    <link  href="../static/css/mdb.min.css" th:href="@{/css/mdb.min.css}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link  href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link  href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
+    <script src="../static/js/pace.min.js" th:src="@{/js/pace.min.js}"></script>
 </head>
 <body id="page-top">
 
 <div th:fragment="top-navigation">
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top" >
+    <nav class="navbar navbar-expand navbar-dark elegant-color fixed-top" >
 
         <a class="navbar-brand mr-1" href="index.html">Tecdoc</a>
 
-        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#" sec:authorize="isAuthenticated()">
-            <i class="fas fa-bars"></i>
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarCollapse" href="#" sec:authorize="isAuthenticated()">
+            <i class="fas fa-bars text-white fa-2x"></i>
         </button>
 
-        <a class="nav-link ml-auto mr-0 mr-md-3 my-2 my-md-0" href="#" th:href="@{/login}" id="login" role="button" sec:authorize="isAuthenticated() == false">
+        <a class="nav-link ml-auto mr-0 mr-md-3 my-2 my-md-0" href="#" th:href="@{/login}" onClick="changeSize()" id="login" role="button" style="color:#fff;"sec:authorize="isAuthenticated() == false">
             <span>Login <i class="fas fa-sign-in-alt fa-fw"></i></span>
         </a>
         <!-- Navbar -->
@@ -83,11 +78,47 @@
     </nav>
 </div>
 
+<nav id="sidebar" class="elegant-color" th:fragment="sidebar(activeTab)" sec:authorize="isAuthenticated()">
+    <div class="sidebar-header elegant-color">
+        <h3>Bootstrap Sidebar</h3>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li th:class="${activeTab == 'home'}? 'active' : null">
+            <a class="nav-link" href="#homeSubmenu" th:href="@{/}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Home</span>
+            </a>
+        </li>
+
+        <li class="nav-item" th:class="${activeTab == 'users'}? 'active' : null">
+            <a class="nav-link" href="#" th:href="@{/users}">
+                <i class="fas fa-fw fa-user"></i>
+                <span style=>Gestion des utilisateurs</span></a>
+        </li>
+        <li class="nav-item" th:class="${activeTab == 'userLogs'}? 'active' : null">
+            <a class="nav-link" href="#" th:href="@{/userLogsPage}">
+                <i class="fas fa-fw fa-clock"></i>
+                <span>Historique des conexions</span></a>
+        </li>
+        <li class="nav-item" th:class="${activeTab == 'ftp'}? 'active' : null">
+            <a class="nav-link" href="#" th:href="@{/ftp}">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Gestion ftp</span></a>
+        </li>
+        <li class="nav-item" th:class="${activeTab == 'files'}? 'active' : null">
+            <a class="nav-link" href="#" th:href="@{/files}">
+                <i class="fas fa-fw fa-file"></i>
+                <span>Gestion ftp</span></a>
+        </li>
+    </ul>
+
+</nav>
 
 
-<div th:fragment="sidebar" sec:authorize="isAuthenticated()">
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav fixed-top" style="position: sticky;">
+<!--<div th:fragment="sidebar" sec:authorize="isAuthenticated()">
+    <!-- Sidebar
+    <ul class="sidebar navbar-nav fixed-top col-sm-3" id="sidebar">
         <li class="nav-item">
             <a class="nav-link" href="index.html" th:href="@{/}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -112,12 +143,12 @@
         </li>
     </ul>
 
-    <!-- Scroll to Top Button-->
+    <!-- Scroll to Top Button
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
+    <!-- Logout Modal
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -135,7 +166,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 
 <!--<nav class="navbar navbar-inverse">

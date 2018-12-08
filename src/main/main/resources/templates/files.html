@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+
+</head>
+<body id="page-top">
+
+
+<div th:include="common/header :: top-navigation">...</div>
+
+
+<div id="wrapper" >
+    <div id="content">
+        <div th:insert="common/header :: sidebar(files)">...</div>
+
+        <div class="jumbotron">
+            <div class="row">
+                <a th:href="@{/addfilestructure}" class="btn btn-info">Add FileStructure</a>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Table Name</th>
+                    <th scope="col">name</th>
+                    <th scope="col">pos</th>
+                    <th scope="col">length</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">Update</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="f : ${allFiles}" >
+                    <tr>
+                        <td th:text="${f.filename}"><b> </b></td>
+                        <td th:text="${f.tableName}"><b> </b></td>
+                        <td th:text="${f.name}"><b> </b></td>
+                        <td th:text="${f.pos}"><b> </b></td>
+                        <td th:text="${f.length}"><b></b></td>
+                        <td th:text="${f.type}"><b>name : </b></td>
+                        <td th:text="${f.description}"><b>name : </b></td>
+                        <th><a th:href="@{/deleteStructure(id=${f.id})}" class="btn btn-danger">Delete</a></th>
+                        <th><a th:href="@{/updateStructure/{id}(id=${f.id})}" class="btn btn-primary">Update</a></th>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+    </div>
+</div>
+</div>
+<div th:replace="common/footer :: footer">...</div>
+
+</body>
+</html>

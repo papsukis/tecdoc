@@ -7,9 +7,10 @@
 <body id="page-top">
 <div th:include="common/header :: top-navigation">...</div>
 
-
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
+<div id="content">
+
+    <div th:insert="common/header :: sidebar(home)">...</div>
     <div id="content-wrapper">
 
         <div class="container-fluid">
@@ -31,9 +32,10 @@
         <!-- /.container-fluid -->
 
     </div>
+    <div th:replace="common/footer :: footer">...</div>
+</div>
 </div>
 
-<div th:replace="common/footer :: footer">...</div>
 
 </body>
 </html>

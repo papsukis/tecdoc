@@ -1,9 +1,9 @@
 package com.admaroc.tecdoc.controller;
 
-import com.admaroc.tecdoc.model.Role;
-import com.admaroc.tecdoc.services.PrivilegeServices;
-import com.admaroc.tecdoc.services.RoleServices;
-import com.admaroc.tecdoc.services.UserServices;
+import com.admaroc.tecdoc.tecdoc.model.Role;
+import com.admaroc.tecdoc.services.tecdoc.PrivilegeServices;
+import com.admaroc.tecdoc.services.tecdoc.RoleServices;
+import com.admaroc.tecdoc.services.tecdoc.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

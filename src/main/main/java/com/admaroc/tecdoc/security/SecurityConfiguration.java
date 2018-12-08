@@ -1,14 +1,13 @@
 package com.admaroc.tecdoc.security;
 
 
-import com.admaroc.tecdoc.services.Implementation.UserDetailsServiceImpl;
+import com.admaroc.tecdoc.services.tecdoc.Implementation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -57,7 +56,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/", "/login", "/logout").permitAll()
                 .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/ressources/**").permitAll().anyRequest().permitAll()
                 .antMatchers("/user/").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/roles").permitAll()
@@ -72,12 +70,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin().authenticationDetailsSource(authenticationDetailsSource)//
                 .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login")//
-                .defaultSuccessUrl("/index",true)//
+                .defaultSuccessUrl("/index")//
                 .failureUrl("/login?error=true")
                 .usernameParameter("name")//
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful")
                 .and().exceptionHandling();
+
+       http.authorizeRequests().antMatchers("/static/**").permitAll().anyRequest().permitAll();
     }
 
 

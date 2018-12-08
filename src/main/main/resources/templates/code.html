@@ -10,7 +10,7 @@
 <body>
 <div th:replace="common/header :: top-navigation">...</div>
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
+    <div th:insert="common/header :: sidebar(users)">...</div>
     <div id="content-wrapper">
         <br/>
         <img th:src="${qrCode}"/>

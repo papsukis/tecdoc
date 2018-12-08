@@ -8,26 +8,41 @@
 <!-- Include _menu.html -->
 <div th:replace="common/header :: top-navigation">...</div>
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
-    <div id="content-wrapper">
-        <table>
-            <th:block th:each="l : ${logs}" >
+    <div  id="content">
+    <div th:insert="common/header :: sidebar(userLogs)">...</div>
+
+        <div class="container">
+            <div class="jumbotron">
+
+        <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">e-mail</th>
+                    <th scope="col">Addresse IP</th>
+                    <th scope="col">Heure de conexion</th>
+                </tr>
+                </thead>
+                <tbody>
+            <div th:each="l : ${logs}" >
                 <tr>
 
-                    <th>name : </th>
+
                     <td th:text="${l.name}"><b></b></td>
-                    <th>email : </th>
+
                     <td th:text="${l.email}"><b></b></td>
 
-                    <th>IP address :</th>
                     <td th:text="${l.IP}"><b></b></td>
-                    <th>Log Time :</th>
+
                     <td th:text="${l.logTime}"><b></b></td>
 
                 </tr>
-            </th:block>
-        </table>
 
+            </div>
+                </tbody>
+        </table>
+            </div>
+        </div>
     </div>
 </div>
 <div th:replace="common/footer :: footer">...</div>

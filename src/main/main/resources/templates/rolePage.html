@@ -6,25 +6,34 @@
 <!-- Include _menu.html -->
 <div th:replace="common/header :: top-navigation">...</div>
 <div id="wrapper" >
-    <div th:insert="common/header :: sidebar">...</div>
+    <div  id="content">
+    <div th:insert="common/header :: sidebar(users)">...</div>
+        <div class=" border border-light p-5 m-5">
     <div id="content-wrapper">
         <a th:href="@{/addRole}" class="btn btn-danger">Ajouter Role</a>
-        <table>
-            <th:block th:each="role : ${roles}" >
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Update</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="role : ${roles}" >
                 <tr>
-                    <th>name : </th>
                     <td th:text="${role.name}"><b>name : </b></td>
-
-                    <th>description :</th>
                     <td th:text="${role.description}"><b></b></td>
-                    <th>ROLE :</th>
-                    <td th:each="privilege : ${role.privileges}" th:value="${privilege.id}" th:text="${privilege.name}"><b></b></td>
                     <th><a th:href="@{/deleteRole(id=${role.id})}" class="btn btn-danger">Delete</a>
                     </th>
-                    <th><a th:href="@{/updateRole/{id}(id=${role.id})}">Update</a></th>
+                    <th><a th:href="@{/updateRole/{id}(id=${role.id})}" class="btn btn-primary">Update</a></th>
                 </tr>
-            </th:block>
+            </div>
+            </tbody>
         </table>
+    </div>
+    </div>
     </div>
 </div>
 <div th:replace="common/footer :: footer">...</div>
